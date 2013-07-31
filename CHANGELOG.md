@@ -1,3 +1,6 @@
+## 1.8.0
+ * Update dependencies to latest versions
+ 
 ## 1.7.8
  * Close response input stream
 
