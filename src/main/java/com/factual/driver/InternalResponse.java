@@ -20,7 +20,7 @@ public class InternalResponse {
     BufferedReader br = null;
     try {
       br = new BufferedReader(new InputStreamReader(response
-          .getContent()));
+          .getContent(), "utf-8"));
       String line = null;
       StringBuffer sb = new StringBuffer();
       while ((line = br.readLine()) != null) {
