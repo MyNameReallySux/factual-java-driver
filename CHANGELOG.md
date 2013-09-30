@@ -1,3 +1,6 @@
+## 1.8.1
+ * Removed support for Monetize
+ 
 ## 1.8.0
  * Update dependencies to latest versions
  

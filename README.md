@@ -19,7 +19,6 @@ This is the official [Java driver](https://github.com/Factual/factual-java-drive
 
 * [Crosswalk API](https://github.com/Factual/factual-java-driver/wiki/Crosswalk)
 * [Match API](https://github.com/Factual/factual-java-driver/wiki/Match) and [Resolve API](https://github.com/Factual/factual-java-driver/wiki/Resolve)
-* [Monetize API](https://github.com/Factual/factual-java-driver/wiki/Monetize)
 * [Geopulse](https://github.com/Factual/factual-java-driver/wiki/Geopulse)
 
 ### Supporting Calls & Services

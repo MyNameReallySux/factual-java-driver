@@ -34,7 +34,7 @@ import com.google.common.io.Closeables;
  * @author aaron
  */
 public class Factual {
-  private static final String DRIVER_HEADER_TAG = "factual-java-driver-v1.8.0";
+  private static final String DRIVER_HEADER_TAG = "factual-java-driver-v1.8.1";
   private static final String DEFAULT_HOST_HEADER = "api.v3.factual.com";
   private String factHome = "http://api.v3.factual.com/";
   private String host = DEFAULT_HOST_HEADER;
@@ -153,10 +153,6 @@ public class Factual {
 
   protected static String urlForFetchRow(String tableName, String factualId) {
     return "t/" + tableName + "/" + factualId;
-  }
-
-  protected static String urlForMonetize() {
-    return "places/monetize";
   }
 
   protected static String urlForFacets(String tableName) {
@@ -569,17 +565,6 @@ public class Factual {
     MultiResponse resp = new MultiResponse(queries);
     resp.setJson(internalResp.getContent());
     return resp;
-  }
-
-  /**
-   * Runs a monetize <tt>query</tt> against the specified Factual table.
-   * 
-   * @param query
-   *          the query to run against monetize.
-   * @return the response of running <tt>query</tt> against Factual.
-   */
-  public ReadResponse monetize(Query query) {
-    return new ReadResponse(getInternal(urlForMonetize(), query.toUrlParams()));
   }
 
   /**

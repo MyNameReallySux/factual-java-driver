@@ -1085,20 +1085,6 @@ public class FactualTest {
     }
   }
 
-  @Test
-  public void testMonetize() {
-    ReadResponse resp = factual.monetize(new Query().field("place_locality")
-        .isEqual("Los Angeles"));
-    assertOk(resp);
-  }
-
-  @Test
-  public void testMonetizeByBusiness() {
-    ReadResponse resp = factual.monetize(new Query().field("place_factual_id")
-        .isEqual("3226fac0-2f85-49d7-bc67-288fb2fc52ee"));
-    assertOk(resp);
-  }
-
   /**
    * Test debug mode
    */
