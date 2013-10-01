@@ -1,3 +1,8 @@
+## 1.8.1-android
+ * Removed support for Monetize
+ * Update dependencies to latest versions
+ * Close response input stream
+
 ## 1.7.7-android
  * Add resolve debug to see all candidates
  * Add shape query

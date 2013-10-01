@@ -9,7 +9,7 @@ Note if using Maven that the version for Android is as follows:
     <dependency>
       <groupId>com.factual</groupId>
       <artifactId>factual-java-driver</artifactId>
-      <version>1.7.7-android</version>
+      <version>1.8.1-android</version>
     </dependency>
 
 * [Query Filters](https://github.com/Factual/factual-java-driver/wiki/Query-Filters)
