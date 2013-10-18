@@ -14,6 +14,7 @@ This is the official [Java driver](https://github.com/Factual/factual-java-drive
 * [Geo Filters](https://github.com/Factual/factual-java-driver/wiki/Geo-Filters)
 * [Paging: Limit and Offset](https://github.com/Factual/factual-java-driver/wiki/Paging)
 * [Sorting Results](https://github.com/Factual/factual-java-driver/wiki/Sorting-Results)
+* [Improving Search Results](https://github.com/Factual/factual-java-driver/wiki/Improving-search-results)
 
 ### Other APIs
 
