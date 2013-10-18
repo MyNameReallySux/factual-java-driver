@@ -1,3 +1,7 @@
+## 1.8.2
+ * Add Boost support
+ * Add "user" to read query
+
 ## 1.8.1
  * Removed support for Monetize
  

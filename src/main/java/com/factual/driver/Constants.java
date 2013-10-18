@@ -60,6 +60,7 @@ public class Constants {
   // Common query
   protected static final String INCLUDE_COUNT = "include_count";
   protected static final String SEARCH = "q";
+  protected static final String USER = "user";
 
   // Query
   protected static final String QUERY_LIMIT = "limit";
@@ -95,5 +96,9 @@ public class Constants {
   protected static final String CLEAR_FIELDS = "fields";
   protected static final String CLEAR_COMMIT_ID = "commit_id";
   protected static final String CLEAR_FACTUAL_ID = "factual_id";
+
+  // Boost
+  protected static final String BOOST_FACTUAL_ID = "factual_id";
+
 
 }

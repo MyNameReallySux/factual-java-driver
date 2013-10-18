@@ -34,7 +34,7 @@ import com.google.common.io.Closeables;
  * @author aaron
  */
 public class Factual {
-  private static final String DRIVER_HEADER_TAG = "factual-java-driver-v1.8.1";
+  private static final String DRIVER_HEADER_TAG = "factual-java-driver-v1.8.2";
   private static final String DEFAULT_HOST_HEADER = "api.v3.factual.com";
   private String factHome = "http://api.v3.factual.com/";
   private String host = DEFAULT_HOST_HEADER;
@@ -679,6 +679,81 @@ public class Factual {
     return new ResolveResponse(request(new ReadRequest(
         urlForResolve(tableName), query.toUrlParams())));
   }
+
+  /**
+   * 
+   * @param tableName
+   * @param factualId
+   *          The Factual ID of an entity that should be boosted in search
+   *          results.
+   * @return
+   */
+  public BoostResponse boost(String tableName, String factualId) {
+    return boost(tableName, factualId, null, null);
+  }
+
+  /**
+   * 
+   * @param tableName
+   * @param factualId
+   *          The Factual ID of an entity that should be boosted in search
+   *          results.
+   * @param search
+   *          full-text-search query parameter value for q from a read request.
+   * @return
+   */
+  public BoostResponse boost(String tableName, String factualId, String search) {
+    return boost(tableName, factualId, search, null);
+  }
+
+  /**
+   * 
+   * @param tableName
+   * @param factualId
+   *          The Factual ID of an entity that should be boosted in search
+   *          results.
+   * @param search
+   *          full-text-search query parameter value for q from a read request.
+   * @param user
+   *          An arbitrary token for correlating read and boost requests to a
+   *          single app/session/etc. Factual does not use this token to track
+   *          users. The function of this information is only to help evaluate
+   *          how a boost relates to a search.
+   * @return
+   */
+  public BoostResponse boost(String tableName, String factualId, String search, String user) {
+    Boost boost = new Boost(factualId);
+    if (search != null)
+      boost.search(search);
+    if (user != null)
+      boost.user(user);
+    return boost(tableName, boost);
+  }
+
+  /**
+   * 
+   * @param tableName
+   * @param factualId
+   * @param query
+   *          Perform boost request against settings from an existing read query
+   * @return
+   */
+  public BoostResponse boost(String tableName, String factualId, Query query) {
+    return boost(tableName, new Boost(factualId, query));
+  }
+
+  /**
+   * 
+   * @param tableName
+   * @param boost
+   * @return
+   */
+  public BoostResponse boost(String tableName, Boost boost) {
+    // Oauth library currently doesn't support POST body content.
+    InternalResponse resp = postInternal("t/" + tableName + "/boost", boost.toUrlParams(), new HashMap<String, String>());
+    return new BoostResponse(resp);
+  }
+
 
   public SchemaResponse schema(String tableName) {
     Map<String, Object> params = Maps.newHashMap();

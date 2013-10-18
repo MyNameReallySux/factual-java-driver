@@ -1218,6 +1218,40 @@ public class FactualTest {
     }
   }
 
+  @Test
+  public void testBoost() {
+    BoostResponse response = factual.boost(TABLE, "03c26917-5d66-4de9-96bc-b13066173c65", "Local Business Data, Global", "test_driver_user");
+    assertOk(response);
+  }
+
+  @Test
+  public void testBoostNoUser() {
+    BoostResponse response = factual.boost(TABLE, "03c26917-5d66-4de9-96bc-b13066173c65", "Local Business Data, Global");
+    assertOk(response);
+  }
+
+  @Test
+  public void testBoostNoUserNoSearch() {
+    BoostResponse response = factual.boost(TABLE, "03c26917-5d66-4de9-96bc-b13066173c65");
+    assertOk(response);
+  }
+
+  @Test
+  public void testBoostObject() {
+    Boost boost = new Boost("03c26917-5d66-4de9-96bc-b13066173c65");
+    boost.search("Local Business Data, Global");
+    boost.user("test_driver_user");
+    BoostResponse response = factual.boost(TABLE, boost);
+    assertOk(response);
+  }
+
+  @Test
+  public void testBoostExistingQuery() {
+    Query query = new Query().search("Local Business Data, Global").user("test_driver_user");
+    BoostResponse response = factual.boost("places", "03c26917-5d66-4de9-96bc-b13066173c65", query);
+    assertOk(response);
+  }
+
   private void assertFactualId(List<Map<String, Object>> crosswalks, String id) {
     for (Map<String, Object> cw : crosswalks) {
       assertEquals(id, cw.get("factual_id"));

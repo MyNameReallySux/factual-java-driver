@@ -35,6 +35,11 @@ public class Query implements Filterable {
     return this;
   }
 
+  protected String search() {
+    Object val;
+    return ((val = queryParams.getParam(Constants.SEARCH)) != null) ? val.toString() : null;
+  }
+
   /**
    * Sets the maximum amount of records to return from this Query.
    * @param limit the maximum amount of records to return from this Query.
@@ -183,7 +188,7 @@ public class Query implements Filterable {
    * @return this Query.
    */
   public Query near(Point point) {
-	queryParams.setParam(Constants.FILTER_GEO, point);
+    queryParams.setParam(Constants.FILTER_GEO, point);
     return this;
   }
 
@@ -209,6 +214,24 @@ public class Query implements Filterable {
   @Override
   public void add(Filter filter) {
     queryParams.add(filter);
+  }
+
+  /**
+   * @param user
+   *          An (optional) arbitrary token for correlating read and boost
+   *          requests to a single app/session/etc. Factual does not use this
+   *          token to track users. The function of this information is only to
+   *          help evaluate how a boost relates to a search.
+   * @return this Query
+   */
+  public Query user(String user) {
+    addParam(Constants.USER, user);
+    return this;
+  }
+
+  protected String user() {
+    Object val;
+    return ((val = queryParams.getParam(Constants.USER)) != null) ? val.toString() : null;
   }
 
   /**
