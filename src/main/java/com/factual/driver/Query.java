@@ -36,8 +36,8 @@ public class Query implements Filterable {
   }
 
   protected String search() {
-    Object search = queryParams.getParam(Constants.SEARCH).toString();
-    return (search == null) ? null : search.toString();
+    Object val;
+    return ((val = queryParams.getParam(Constants.SEARCH)) != null) ? val.toString() : null;
   }
 
   /**
@@ -230,8 +230,8 @@ public class Query implements Filterable {
   }
 
   protected String user() {
-    Object user = queryParams.getParam(Constants.USER);
-    return (user == null) ? null : user.toString();
+    Object val;
+    return ((val = queryParams.getParam(Constants.USER)) != null) ? val.toString() : null;
   }
 
   /**
