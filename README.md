@@ -18,6 +18,7 @@ Note if using Maven that the version for Android is as follows:
 * [Geo Filters](https://github.com/Factual/factual-java-driver/wiki/Geo-Filters)
 * [Paging: Limit and Offset](https://github.com/Factual/factual-java-driver/wiki/Paging)
 * [Sorting Results](https://github.com/Factual/factual-java-driver/wiki/Sorting-Results)
+* [Improving Search Results](https://github.com/Factual/factual-java-driver/wiki/Improving-search-results)
 
 * Ensure your application's AndroidManifest.xml has Internet access enabled: 
 

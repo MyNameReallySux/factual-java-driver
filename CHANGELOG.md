@@ -1,3 +1,6 @@
+## 1.8.2-android
+ * Add Boost support
+ * Add "user" to read query
 ## 1.8.1-android
  * Removed support for Monetize
  * Update dependencies to latest versions
