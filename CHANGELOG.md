@@ -1,3 +1,6 @@
+## 1.8.3
+ * Update org.json dependency to 20131018
+
 ## 1.8.2
  * Add Boost support
  * Add "user" to read query
