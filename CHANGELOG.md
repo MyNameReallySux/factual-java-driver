@@ -1,3 +1,6 @@
+## 1.8.4
+ * Add blended sort support
+
 ## 1.8.3
  * Update org.json dependency to 20131018
 
