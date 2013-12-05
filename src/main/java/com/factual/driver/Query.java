@@ -179,7 +179,7 @@ public class Query implements Filterable {
     queryParams.setParam(Constants.FILTER_GEO, shape);
     return this;
   }
-  
+
   /**
    * Adds a filter to return results that are geographically near the
    * specified Point.
@@ -289,4 +289,39 @@ public class Query implements Filterable {
     return UrlUtil.toUrlQuery(toUrlParams());
   }
 
+  /**
+   * Sets this Query to perform a blended sort on the specified field with
+   * the specified weight value. See API docs for valid blended sort fields.
+   * 
+   * @param field
+   * @param weight
+   * @return
+   */
+  public Query blendField(String field, int weight) {
+    queryParams.setJsonMapParam(Constants.QUERY_SORT, field, weight);
+    return this;
+  }
+
+  /**
+   * Sets this Query to perform a blended sort on rank with the specified
+   * weight.
+   * 
+   * @param weight
+   * @return
+   */
+  public Query blendRank(int weight) {
+    return blendField("placerank", weight);
+  }
+
+  /**
+   * Sets this Query to perform a blended sort on distance with the specified
+   * weight. This will only have an effect if a geo filter is used with this
+   * query.
+   * 
+   * @param weight
+   * @return
+   */
+  public Query blendDistance(int weight) {
+    return blendField("distance", weight);
+  }
 }
