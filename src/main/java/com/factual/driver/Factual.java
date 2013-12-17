@@ -308,6 +308,24 @@ public class Factual {
   }
 
   /**
+   * Flags a row a closed business in the specified Factual table.
+   * 
+   * @param tableName
+   *          the name of the table you wish to flag a closed business in (e.g.,
+   *          "places")
+   * @param factualId
+   *          the factual id that is the closed business
+   * @param metadata
+   *          the metadata to send with information on this request
+   * 
+   * @return the response from flagging a closed row.
+   */
+  public FlagResponse flagClosed(String tableName, String factualId,
+      Metadata metadata) {
+    return flagCustom(urlForFlag(tableName, factualId), "closed", metadata);
+  }  
+
+  /**
    * Flags a row as a duplicate in the specified Factual table.
    * 
    * @param tableName
