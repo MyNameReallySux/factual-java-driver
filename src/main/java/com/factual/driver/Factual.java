@@ -34,7 +34,7 @@ import com.google.common.io.Closeables;
  * @author aaron
  */
 public class Factual {
-  private static final String DRIVER_HEADER_TAG = "factual-java-driver-v1.8.4";
+  private static final String DRIVER_HEADER_TAG = "factual-java-driver-v1.8.5";
   private static final String DEFAULT_HOST_HEADER = "api.v3.factual.com";
   private String factHome = "http://api.v3.factual.com/";
   private String host = DEFAULT_HOST_HEADER;
@@ -323,7 +323,7 @@ public class Factual {
   public FlagResponse flagClosed(String tableName, String factualId,
       Metadata metadata) {
     return flagCustom(urlForFlag(tableName, factualId), "closed", metadata);
-  }  
+  }
 
   /**
    * Flags a row as a duplicate in the specified Factual table.
