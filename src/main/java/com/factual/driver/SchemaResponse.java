@@ -22,13 +22,12 @@ public class SchemaResponse extends Response implements Tabular {
   private final boolean geoEnabled;
   private final String description;
   private final List<Map<String, Object>> data;
-  private InternalResponse resp = null;
 
   /**
    * Constructor, parses from a JSON response String.
    */
   public SchemaResponse(InternalResponse resp) {
-    this.resp = resp;
+    super(resp);
     try{
       JSONObject rootJsonObj = new JSONObject(resp.getContent());
       Response.withMeta(this, rootJsonObj);

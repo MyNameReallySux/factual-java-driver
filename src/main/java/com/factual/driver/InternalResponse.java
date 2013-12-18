@@ -15,8 +15,10 @@ public class InternalResponse {
 
   private String content = null;
   private final int statusCode;
+  private HttpResponse rawResponse;
 
   public InternalResponse(HttpResponse response, LineCallback cb) throws IOException {
+    this.rawResponse = response;
     BufferedReader br = null;
     try {
       br = new BufferedReader(new InputStreamReader(response
@@ -40,6 +42,10 @@ public class InternalResponse {
   public InternalResponse(String content) {
     this.content = content;
     this.statusCode = 200;
+  }
+
+  public HttpResponse getRawResponse() {
+    return rawResponse;
   }
 
   public String getContent() {

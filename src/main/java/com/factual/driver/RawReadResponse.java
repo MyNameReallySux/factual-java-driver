@@ -5,13 +5,11 @@ import org.json.JSONObject;
 
 public class RawReadResponse extends Response {
 
-  private final InternalResponse resp;
-
   /**
    * Constructor, parses from a JSON response String.
    */
   public RawReadResponse(InternalResponse resp) {
-    this.resp = resp;
+    super(resp);
     try{
       JSONObject rootJsonObj = new JSONObject(resp.getContent());
       Response.withMeta(this, rootJsonObj);

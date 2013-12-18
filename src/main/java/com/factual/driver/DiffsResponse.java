@@ -22,6 +22,7 @@ public class DiffsResponse extends Response implements DiffsCallback {
   private final List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 
   public DiffsResponse() {
+    super(null);
   }
 
   protected static Map<String, Object> parseItem(String jsonObj) throws JSONException {

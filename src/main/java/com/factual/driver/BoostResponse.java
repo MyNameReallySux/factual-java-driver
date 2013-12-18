@@ -9,10 +9,9 @@ import org.json.JSONObject;
  * @author brandon
  */
 public class BoostResponse extends Response {
-  private InternalResponse resp = null;
 
   public BoostResponse(InternalResponse resp) {
-    this.resp = resp;
+    super(resp);
     try {
       JSONObject rootJsonObj = new JSONObject(resp.getContent());
       Response.withMeta(this, rootJsonObj);
