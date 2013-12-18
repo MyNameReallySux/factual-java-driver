@@ -815,6 +815,16 @@ public class FactualTest {
 
   @Test
   @Ignore
+  public void testFlagClosed() {
+    FlagResponse resp = factual.flagClosed(SANDBOX_TABLE,
+        "158294f8-3300-4841-9e49-c23d5d670d07",
+        new Metadata().user("test_driver_user"));
+    System.out.println(resp);
+    assertOk(resp);
+  }
+
+  @Test
+  @Ignore
   public void testFlagDuplicate() {
     FlagResponse resp = factual.flagDuplicate(SANDBOX_TABLE,
         "158294f8-3300-4841-9e49-c23d5d670d07",
