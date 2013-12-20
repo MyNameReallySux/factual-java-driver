@@ -35,6 +35,11 @@
 
   <developers>
     <developer>
+      <id>brandon</id>
+      <name>Brandon Yoshimoto</name>
+      <email>brandon@factual.com</email>
+    </developer>
+    <developer>
       <id>aaron</id>
       <name>Aaron Crow</name>
       <email>aaron@factual.com</email>
