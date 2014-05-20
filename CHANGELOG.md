@@ -1,3 +1,7 @@
+## 1.8.5
+ * Add "closed" to flag api
+ * Add access to raw response from underlying library
+
 ## 1.8.4
  * Add blended sort support
 

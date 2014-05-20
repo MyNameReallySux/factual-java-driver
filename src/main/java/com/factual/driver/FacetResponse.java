@@ -12,13 +12,12 @@ import org.json.JSONObject;
  */
 public class FacetResponse extends Response {
   private Map<String, Map<String, Object>> data = null;
-  private InternalResponse resp = null;
 
   /**
    * Constructor, parses from a JSON response String.
    */
   public FacetResponse(InternalResponse resp) {
-    this.resp = resp;
+    super(resp);
     try {
       JSONObject rootJsonObj = new JSONObject(resp.getContent());
       Response.withMeta(this, rootJsonObj);

@@ -3,6 +3,8 @@ package com.factual.driver;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.api.client.http.HttpResponse;
+
 
 /**
  * Represents the basic concept of a response from Factual.
@@ -15,7 +17,19 @@ public abstract class Response {
   private String status;
   private int totalRowCount = UNDEFINED;
   private int includedRows;
+  protected InternalResponse resp = null;
 
+  public Response(InternalResponse resp) {
+    this.resp = resp;
+  }
+
+  /**
+   * Get the raw response for this request from the underlying library
+   * @return
+   */
+  public HttpResponse getRawResponse() {
+    return resp.getRawResponse();
+  }
 
   /**
    * The status returned by the Factual API server, e.g. "ok".

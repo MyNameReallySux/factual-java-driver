@@ -4,7 +4,7 @@
 
   <groupId>com.factual</groupId>
   <artifactId>factual-java-driver</artifactId>
-  <version>1.8.4</version>
+  <version>1.8.5</version>
   <packaging>jar</packaging>
 
   <name>factual-java-driver</name>
@@ -34,6 +34,11 @@
   </licenses>
 
   <developers>
+    <developer>
+      <id>brandon</id>
+      <name>Brandon Yoshimoto</name>
+      <email>brandon@factual.com</email>
+    </developer>
     <developer>
       <id>aaron</id>
       <name>Aaron Crow</name>

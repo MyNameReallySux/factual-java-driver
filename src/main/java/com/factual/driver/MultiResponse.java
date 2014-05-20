@@ -26,6 +26,7 @@ public class MultiResponse extends Response {
    * @param requestMapping
    */
   public MultiResponse(Map<String, RequestImpl> requestMapping) {
+    super(null);
     this.requestMapping = requestMapping;
   }
 

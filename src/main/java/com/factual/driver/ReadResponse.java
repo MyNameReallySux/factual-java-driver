@@ -21,7 +21,6 @@ import com.google.common.collect.Lists;
  * @author aaron
  */
 public class ReadResponse extends Response implements Tabular {
-  protected InternalResponse resp = null;
   private List<Map<String, Object>> data = Lists.newArrayList();
 
 
@@ -29,7 +28,7 @@ public class ReadResponse extends Response implements Tabular {
    * Constructor, parses from a JSON response String.
    */
   public ReadResponse(InternalResponse resp) {
-    this.resp = resp;
+    super(resp);
     try{
       JSONObject rootJsonObj = new JSONObject(resp.getContent());
       Response.withMeta(this, rootJsonObj);

@@ -26,6 +26,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
+import com.google.api.client.http.HttpHeaders;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -1232,6 +1233,16 @@ public class FactualTest {
     Query query = new Query().search("Local Business Data, Global").user("test_driver_user");
     BoostResponse response = factual.boost("places", "03c26917-5d66-4de9-96bc-b13066173c65", query);
     assertOk(response);
+  }
+
+  @Test
+  public void testHeaders() {
+    ReadResponse resp = factual.fetch(TABLE, new Query().field("country")
+        .isEqual("US"));
+
+    HttpHeaders headers = resp.getRawResponse().getHeaders();
+    assertOk(resp);
+    assertEquals("application/json; charset=utf-8", headers.getContentType());
   }
 
   private void assertFactualId(List<Map<String, Object>> crosswalks, String id) {

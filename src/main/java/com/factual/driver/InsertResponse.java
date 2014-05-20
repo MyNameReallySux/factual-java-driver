@@ -9,7 +9,6 @@ import org.json.JSONObject;
  * @author brandon
  */
 public class InsertResponse extends Response {
-  private InternalResponse resp = null;
   private String factualId;
   private String commitId;
   private boolean newEntity;
@@ -18,7 +17,7 @@ public class InsertResponse extends Response {
    * Constructor, parses from a JSON response String.
    */
   public InsertResponse(InternalResponse resp) {
-    this.resp = resp;
+    super(resp);
     try {
       JSONObject rootJsonObj = new JSONObject(resp.getContent());
       Response.withMeta(this, rootJsonObj);

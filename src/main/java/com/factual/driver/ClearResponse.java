@@ -11,13 +11,12 @@ import org.json.JSONObject;
 public class ClearResponse extends Response {
   private String factualId;
   private String commitId;
-  private InternalResponse resp = null;
 
   /**
    * Constructor, parses from a JSON response String.
    */
   public ClearResponse(InternalResponse resp) {
-    this.resp = resp;
+    super(resp);
     try {
       JSONObject rootJsonObj = new JSONObject(resp.getContent());
       Response.withMeta(this, rootJsonObj);
