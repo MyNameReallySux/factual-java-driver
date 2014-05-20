@@ -84,18 +84,6 @@ public class MultiRequest {
   }
 
   /**
-   * Add a geopulse request for inclusion in the next multi request.
-   * 
-   * @param queryName
-   *          the name for this subquery within the multi request
-   * @param query
-   *          the geopulse query to run
-   */
-  public void addQuery(String queryName, Geopulse query) {
-    queries.put(queryName, new ReadRequest(Factual.urlForGeopulse(), query.toUrlParams()));
-  }
-
-  /**
    * Remove a query from the next multi request.
    * 
    * @param queryName

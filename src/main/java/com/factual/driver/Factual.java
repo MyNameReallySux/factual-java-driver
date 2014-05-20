@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
+
+import org.json.JSONArray;
 
 import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.auth.oauth.OAuthParameters;
@@ -168,17 +171,6 @@ public class Factual {
   }
 
   /**
-   * Runs a <tt>geopulse</tt> query against Factual.
-   * 
-   * @param geopulse
-   *          the geopulse query to run.
-   * @return the response of running <tt>geopulse</tt> against Factual.
-   */
-  public ReadResponse geopulse(Geopulse geopulse) {
-    return new ReadResponse(getInternal(urlForGeopulse(), geopulse.toUrlParams()));
-  }
-
-  /**
    * Reverse geocodes by returning a response containing the address nearest to
    * the given point.
    * 
@@ -322,11 +314,13 @@ public class Factual {
    */
   public FlagResponse flagClosed(String tableName, String factualId,
       Metadata metadata) {
-    return flagCustom(urlForFlag(tableName, factualId), "closed", metadata);
+    return flagCustom(urlForFlag(tableName, factualId), "closed", null, null, metadata);
   }  
 
   /**
-   * Flags a row as a duplicate in the specified Factual table.
+   * @deprecated
+   * Deprecated method for flagging a duplicate. Please use the newer method
+   * which takes a _preferredFactualId_ instead.
    * 
    * @param tableName
    *          the name of the table you wish to flag a duplicate for (e.g.,
@@ -340,15 +334,37 @@ public class Factual {
    */
   public FlagResponse flagDuplicate(String tableName, String factualId,
       Metadata metadata) {
-    return flagCustom(urlForFlag(tableName, factualId), "duplicate", metadata);
+    return flagCustom(urlForFlag(tableName, factualId), "duplicate", null, null, metadata);
   }
+
+  /**
+   * Flag a business as being a duplicate of another.
+   * 
+   * @param tableName
+   *          the name of the table you wish to flag a duplicate for (e.g.,
+   *          "places")
+   * @param factualId
+   *          the factual id of the duplicate row
+   * @param preferredFactualId
+   *          the factual id that is preferred of the two duplicates to persist.
+   * @param metadata
+   *          the metadata to send with information on this request
+   * 
+   * @return the response from flagging a duplicate row.
+   */
+  public FlagResponse flagDuplicate(String tableName, String factualId, String preferredFactualId,
+          Metadata metadata) {
+        return flagCustom(urlForFlag(tableName, factualId), "duplicate", preferredFactualId, null, metadata);
+      }
 
   protected static String urlForFlag(String tableName, String factualId) {
     return "t/" + tableName + "/" + factualId + "/flag";
   }
 
   /**
-   * Flags a row as inaccurate in the specified Factual table.
+   * @deprecated
+   * Deprecated method for flagging a row as inaccurate. Please use the newer method
+   * which takes a List of inaccurate field names instead. 
    * 
    * @param tableName
    *          the name of the table you wish to flag an inaccurate row for
@@ -362,8 +378,30 @@ public class Factual {
    */
   public FlagResponse flagInaccurate(String tableName, String factualId,
       Metadata metadata) {
-    return flagCustom(urlForFlag(tableName, factualId), "inaccurate", metadata);
+    return flagCustom(urlForFlag(tableName, factualId), "inaccurate", null, null, metadata);
   }
+
+  /**
+   * Flag a row as being inaccurate.
+   * 
+   * @param tableName
+   *          the name of the table you wish to flag an inaccurate row for
+   *          (e.g., "places")
+   * @param factualId
+   *          the factual id that is inaccurate
+   * @param fields
+   *          a List of fields (by name) which you konw to contain inaccurate 
+   *          data, however for which you don't actually have the proper corrections. 
+   *          If you have actual corrections, please use the submit API to update
+   *          the row.
+   * @param metadata
+   *          the metadata to send with information on this request
+   * @return
+   */
+  public FlagResponse flagInaccurate(String tableName, String factualId, List<String> fields,
+          Metadata metadata) {
+        return flagCustom(urlForFlag(tableName, factualId), "inaccurate", null, fields, metadata);
+      }
 
   /**
    * Flags a row as inappropriate in the specified Factual table.
@@ -380,7 +418,7 @@ public class Factual {
    */
   public FlagResponse flagInappropriate(String tableName, String factualId,
       Metadata metadata) {
-    return flagCustom(urlForFlag(tableName, factualId), "inappropriate",
+    return flagCustom(urlForFlag(tableName, factualId), "inappropriate", null, null,
         metadata);
   }
 
@@ -399,8 +437,25 @@ public class Factual {
    */
   public FlagResponse flagNonExistent(String tableName, String factualId,
       Metadata metadata) {
-    return flagCustom(urlForFlag(tableName, factualId), "nonexistent", metadata);
+    return flagCustom(urlForFlag(tableName, factualId), "nonexistent", null, null, metadata);
   }
+
+  /**
+   * Flags a row as having being relocated, where its new location is an existing 
+   * record, identified by preferredFactualId. If there is no record corresponding
+   * to the relocated business, use the submit API to update the record's address
+   * instead.
+   * 
+   * @param tableName
+   * @param factualId
+   * @param preferredFactualId
+   * @param metadata
+   * @return
+   */
+  public FlagResponse flagRelocated(String tableName, String factualId, String preferredFactualId,
+          Metadata metadata) {
+        return flagCustom(urlForFlag(tableName, factualId), "relocated", preferredFactualId, null, metadata);
+      }
 
   /**
    * Flags a row as spam in the specified Factual table.
@@ -417,7 +472,7 @@ public class Factual {
    */
   public FlagResponse flagSpam(String tableName, String factualId,
       Metadata metadata) {
-    return flagCustom(urlForFlag(tableName, factualId), "spam", metadata);
+    return flagCustom(urlForFlag(tableName, factualId), "spam", null, null, metadata);
   }
 
   /**
@@ -436,7 +491,7 @@ public class Factual {
    */
   public FlagResponse flagOther(String tableName, String factualId,
       Metadata metadata) {
-    return flagCustom(urlForFlag(tableName, factualId), "other", metadata);
+    return flagCustom(urlForFlag(tableName, factualId), "other", null, null, metadata);
   }
 
   /**
@@ -552,11 +607,16 @@ public class Factual {
     return new SubmitResponse(resp);
   }
 
-  private FlagResponse flagCustom(String root, String flagType,
-      Metadata metadata) {
+  private FlagResponse flagCustom(String root, String flagType, String preferredFactualId, List<String>fields, Metadata metadata) {
     Map<String, Object> params = Maps.newHashMap();
     params.putAll(metadata.toUrlParams());
     params.put("problem", flagType);
+    if (preferredFactualId != null){
+        params.put("preferred", preferredFactualId);
+    }
+    if (fields != null){
+        params.put("fields", new JSONArray(fields).toString());
+    }
     // Oauth library currently doesn't support POST body content.
     InternalResponse resp = postInternal(root, params, new HashMap<String, String>());
     return new FlagResponse(resp);

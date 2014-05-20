@@ -801,7 +801,7 @@ public class FactualTest {
   @Test
   @Ignore
   public void testClear() {
-    String factualId = "1d93c1ed-8cf3-4d58-94e0-05bbcd827cba";
+    String factualId = "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f";
     Clear clear = new Clear();
     clear.addField("longitude");
     clear.addField("latitude");
@@ -816,7 +816,7 @@ public class FactualTest {
   @Ignore
   public void testFlagClosed() {
     FlagResponse resp = factual.flagClosed(SANDBOX_TABLE,
-        "158294f8-3300-4841-9e49-c23d5d670d07",
+        "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f",
         new Metadata().user("test_driver_user"));
     System.out.println(resp);
     assertOk(resp);
@@ -826,7 +826,7 @@ public class FactualTest {
   @Ignore
   public void testFlagDuplicate() {
     FlagResponse resp = factual.flagDuplicate(SANDBOX_TABLE,
-        "158294f8-3300-4841-9e49-c23d5d670d07",
+        "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f",
         new Metadata().user("test_driver_user"));
     System.out.println(resp);
     assertOk(resp);
@@ -836,7 +836,7 @@ public class FactualTest {
   @Ignore
   public void testFlagInaccurate() {
     FlagResponse resp = factual.flagInaccurate(SANDBOX_TABLE,
-        "158294f8-3300-4841-9e49-c23d5d670d07",
+        "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f",
         new Metadata().user("test_driver_user"));
     assertOk(resp);
   }
@@ -845,7 +845,7 @@ public class FactualTest {
   @Ignore
   public void testFlagInappropriate() {
     FlagResponse resp = factual.flagInappropriate(SANDBOX_TABLE,
-        "158294f8-3300-4841-9e49-c23d5d670d07",
+        "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f",
         new Metadata().user("test_driver_user"));
     assertOk(resp);
   }
@@ -854,7 +854,17 @@ public class FactualTest {
   @Ignore
   public void testFlagNonExistent() {
     FlagResponse resp = factual.flagNonExistent(SANDBOX_TABLE,
-        "158294f8-3300-4841-9e49-c23d5d670d07",
+        "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f",
+        new Metadata().user("test_driver_user"));
+    assertOk(resp);
+  }
+
+  @Test
+  @Ignore
+  public void testFlagRelocated() {
+    FlagResponse resp = factual.flagRelocated(SANDBOX_TABLE,
+        "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f", 
+        "21EC2020-3AEA-1069-A2DD-08002B30309D",
         new Metadata().user("test_driver_user"));
     assertOk(resp);
   }
@@ -863,7 +873,7 @@ public class FactualTest {
   @Ignore
   public void testFlagSpam() {
     FlagResponse resp = factual.flagSpam(SANDBOX_TABLE,
-        "158294f8-3300-4841-9e49-c23d5d670d07",
+        "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f",
         new Metadata().user("test_driver_user"));
     assertOk(resp);
   }
@@ -872,21 +882,8 @@ public class FactualTest {
   @Ignore
   public void testFlagOther() {
     FlagResponse resp = factual.flagOther(SANDBOX_TABLE,
-        "158294f8-3300-4841-9e49-c23d5d670d07",
+        "4e4a14fe-988c-4f03-a8e7-0efc806d0a7f",
         new Metadata().user("test_driver_user"));
-    assertOk(resp);
-  }
-
-  @Test
-  public void testGeopulse() {
-    ReadResponse resp = factual.geopulse(new Geopulse(new Point(latitude,
-        longitude)).only("area_statistics", "race_and_ethnicity"));
-    List<Map<String, Object>> data = resp.getData();
-    Map<String, Object> pulse = data.get(0);
-    JSONObject demographics = (JSONObject) pulse.get("demographics");
-
-    assertTrue(demographics.has("area_statistics"));
-    assertTrue(demographics.has("race_and_ethnicity"));
     assertOk(resp);
   }
 
@@ -1065,31 +1062,6 @@ public class FactualTest {
         new Query().field("factual_id")
         .isEqual("97598010-433f-4946-8fd5-4a6dd1639d77").limit(1));
     MultiResponse multi = factual.sendRequests(multiReq);
-    for (Response resp : multi.getData().values()) {
-      assertOk(resp);
-    }
-  }
-
-  @Test
-  public void testMultiGeopulseWithNearestAddress() {
-    MultiRequest multiReq = new MultiRequest();
-    multiReq.addQuery("q1", new Geocode(new Point(latitude, longitude)));
-    multiReq.addQuery("q2", new Geopulse(new Point(latitude, longitude)));
-    MultiResponse multi = factual.sendRequests(multiReq);
-    assertTrue(multi.getData().size() == 2);
-    for (Response resp : multi.getData().values()) {
-      assertOk(resp);
-    }
-  }
-
-  @Test
-  public void testMultiGeopulseWithNearestPlace() {
-    MultiRequest multiReq = new MultiRequest();
-    multiReq.addQuery("q1", "global",
-        new Query().within(new Circle(latitude, longitude, meters)));
-    multiReq.addQuery("q2", new Geopulse(new Point(latitude, longitude)));
-    MultiResponse multi = factual.sendRequests(multiReq);
-    assertTrue(multi.getData().size() == 2);
     for (Response resp : multi.getData().values()) {
       assertOk(resp);
     }
