@@ -1,3 +1,7 @@
+## 1.8.6
+ * Remove Geopulse context
+ * Add "relocated" and "preferred" to flag
+ 
 ## 1.8.5
  * Add "closed" to flag api
  * Add access to raw response from underlying library

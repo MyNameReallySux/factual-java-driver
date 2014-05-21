@@ -37,7 +37,7 @@ import com.google.common.io.Closeables;
  * @author aaron
  */
 public class Factual {
-  private static final String DRIVER_HEADER_TAG = "factual-java-driver-v1.8.5";
+  private static final String DRIVER_HEADER_TAG = "factual-java-driver-v1.8.6";
   private static final String DEFAULT_HOST_HEADER = "api.v3.factual.com";
   private String factHome = "http://api.v3.factual.com/";
   private String host = DEFAULT_HOST_HEADER;
@@ -315,7 +315,7 @@ public class Factual {
   public FlagResponse flagClosed(String tableName, String factualId,
       Metadata metadata) {
     return flagCustom(urlForFlag(tableName, factualId), "closed", null, null, metadata);
-  }  
+  }
 
   /**
    * @deprecated
@@ -332,6 +332,7 @@ public class Factual {
    * 
    * @return the response from flagging a duplicate row.
    */
+  @Deprecated
   public FlagResponse flagDuplicate(String tableName, String factualId,
       Metadata metadata) {
     return flagCustom(urlForFlag(tableName, factualId), "duplicate", null, null, metadata);
@@ -353,9 +354,9 @@ public class Factual {
    * @return the response from flagging a duplicate row.
    */
   public FlagResponse flagDuplicate(String tableName, String factualId, String preferredFactualId,
-          Metadata metadata) {
-        return flagCustom(urlForFlag(tableName, factualId), "duplicate", preferredFactualId, null, metadata);
-      }
+      Metadata metadata) {
+    return flagCustom(urlForFlag(tableName, factualId), "duplicate", preferredFactualId, null, metadata);
+  }
 
   protected static String urlForFlag(String tableName, String factualId) {
     return "t/" + tableName + "/" + factualId + "/flag";
@@ -364,7 +365,7 @@ public class Factual {
   /**
    * @deprecated
    * Deprecated method for flagging a row as inaccurate. Please use the newer method
-   * which takes a List of inaccurate field names instead. 
+   * which takes a List of inaccurate field names instead.
    * 
    * @param tableName
    *          the name of the table you wish to flag an inaccurate row for
@@ -376,6 +377,7 @@ public class Factual {
    * 
    * @return the response from flagging an inaccurate row.
    */
+  @Deprecated
   public FlagResponse flagInaccurate(String tableName, String factualId,
       Metadata metadata) {
     return flagCustom(urlForFlag(tableName, factualId), "inaccurate", null, null, metadata);
@@ -390,8 +392,8 @@ public class Factual {
    * @param factualId
    *          the factual id that is inaccurate
    * @param fields
-   *          a List of fields (by name) which you konw to contain inaccurate 
-   *          data, however for which you don't actually have the proper corrections. 
+   *          a List of fields (by name) which you konw to contain inaccurate
+   *          data, however for which you don't actually have the proper corrections.
    *          If you have actual corrections, please use the submit API to update
    *          the row.
    * @param metadata
@@ -399,9 +401,9 @@ public class Factual {
    * @return
    */
   public FlagResponse flagInaccurate(String tableName, String factualId, List<String> fields,
-          Metadata metadata) {
-        return flagCustom(urlForFlag(tableName, factualId), "inaccurate", null, fields, metadata);
-      }
+      Metadata metadata) {
+    return flagCustom(urlForFlag(tableName, factualId), "inaccurate", null, fields, metadata);
+  }
 
   /**
    * Flags a row as inappropriate in the specified Factual table.
@@ -441,7 +443,7 @@ public class Factual {
   }
 
   /**
-   * Flags a row as having being relocated, where its new location is an existing 
+   * Flags a row as having being relocated, where its new location is an existing
    * record, identified by preferredFactualId. If there is no record corresponding
    * to the relocated business, use the submit API to update the record's address
    * instead.
@@ -453,9 +455,9 @@ public class Factual {
    * @return
    */
   public FlagResponse flagRelocated(String tableName, String factualId, String preferredFactualId,
-          Metadata metadata) {
-        return flagCustom(urlForFlag(tableName, factualId), "relocated", preferredFactualId, null, metadata);
-      }
+      Metadata metadata) {
+    return flagCustom(urlForFlag(tableName, factualId), "relocated", preferredFactualId, null, metadata);
+  }
 
   /**
    * Flags a row as spam in the specified Factual table.
@@ -612,10 +614,10 @@ public class Factual {
     params.putAll(metadata.toUrlParams());
     params.put("problem", flagType);
     if (preferredFactualId != null){
-        params.put("preferred", preferredFactualId);
+      params.put("preferred", preferredFactualId);
     }
     if (fields != null){
-        params.put("fields", new JSONArray(fields).toString());
+      params.put("fields", new JSONArray(fields).toString());
     }
     // Oauth library currently doesn't support POST body content.
     InternalResponse resp = postInternal(root, params, new HashMap<String, String>());
