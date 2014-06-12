@@ -1,3 +1,6 @@
+## 1.8.7
+ * Add support for thresholds
+
 ## 1.8.6
  * Remove Geopulse context
  * Add "relocated" and "preferred" to flag
