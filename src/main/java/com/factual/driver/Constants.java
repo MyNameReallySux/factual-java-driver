@@ -60,6 +60,7 @@ public class Constants {
   // Common query
   protected static final String INCLUDE_COUNT = "include_count";
   protected static final String SEARCH = "q";
+  protected static final String THRESHOLD = "threshold";
   protected static final String USER = "user";
 
   // Query

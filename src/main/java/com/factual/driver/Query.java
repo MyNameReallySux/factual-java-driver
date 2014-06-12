@@ -41,6 +41,20 @@ public class Query implements Filterable {
   }
 
   /**
+   * Chooses an existence threshold. For on the latest enumuration of values 
+   *  that can be passed into the threshold value, please see the Read API
+   *  documentation: http://developer.factual.com/api-docs/#Read, in particular
+   *  the threshold parameter.
+   *  
+   * @param threshold
+   * @return
+   */
+  public Query threshold(String threshold) {
+      addParam(Constants.THRESHOLD, threshold);
+      return this;
+    }
+
+  /**
    * Sets the maximum amount of records to return from this Query.
    * @param limit the maximum amount of records to return from this Query.
    * @return this Query
