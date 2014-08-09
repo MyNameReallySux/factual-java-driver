@@ -1,3 +1,6 @@
+## 1.8.8
+ * Update Guava to 17.0
+
 ## 1.8.7
  * Add support for thresholds
 
